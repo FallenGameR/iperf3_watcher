@@ -12,23 +12,20 @@ function Write-Log
 
     $time = Get-Date
     $day = $time.ToString("dd")
-    $logPath = "iperf3_$day.log"
+    $logPath = "iperf3_$day.csv"
     $logEntry = $time.ToString("yyyy/MM/dd HH:mm:ss") + "," + $Text
 
     $isFilePresent = Test-Path $logPath -ea Ignore
-    Write-Host "isFilePresent: $isFilePresent"
     $isStaleFile = (Get-Item $logPath -ea Ignore | % LastWriteTime | % Date) -ne $time.Date
-    Write-Host "isStaleFile: $isStaleFile"
     $isAppendNeeded = $isFilePresent -and (-not $isStaleFile)
-    Write-Host "isAppendNeeded: $isAppendNeeded"
 
     if( $isAppendNeeded )
     {
-        $logEntry > $logPath
+        $logEntry >> $logPath
     }
     else
     {
-        $logEntry >> $logPath
+        $logEntry > $logPath
     }
 }
 
