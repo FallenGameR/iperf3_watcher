@@ -15,3 +15,7 @@ $taskTrigger = New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval
 $taskSettings = New-ScheduledTaskSettingsSet
 Register-ScheduledTask -TaskName "iperf3_watcher" -Action $taskAction -Trigger $taskTrigger -Settings $taskSettings
 ```
+
+## Joing functionality
+
+`PingTrace` to reboot gateway.
