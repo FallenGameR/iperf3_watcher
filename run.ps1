@@ -12,7 +12,7 @@ function Write-Log
 
     $time = Get-Date
     $day = $time.ToString("dd")
-    $logPath = "iperf3_$day.csv"
+    $logPath = "$PsScriptRoot\iperf3_$day.csv"
     $logEntry = $time.ToString("yyyy/MM/dd HH:mm:ss") + "," + $Text
 
     $isFilePresent = Test-Path $logPath -ea Ignore
