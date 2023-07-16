@@ -16,6 +16,20 @@ $taskSettings = New-ScheduledTaskSettingsSet
 Register-ScheduledTask -TaskName "iperf3_watcher" -Action $taskAction -Trigger $taskTrigger -Settings $taskSettings
 ```
 
+Then open task scheduler and set that it would be executed ragerdless if the user was logged in.
+
+## Server - start on every boot
+
+```ps1
+$taskAction = New-ScheduledTaskAction -Execute 'iperf3.exe' -Argument '-s'
+$taskTrigger = New-ScheduledTaskTrigger -AtStartup
+$taskPrincipal = New-ScheduledTaskPrincipal -UserId ".\fallengamer"
+$task = New-ScheduledTask -Action $taskAction -Trigger $taskTrigger # -Principal $taskPrincipal
+$task | Register-ScheduledTask -TaskName "iperf3 server" # -User $taskPrincipal -Force
+```
+
+Then open task scheduler and set that it would be executed ragerdless if the user was logged in.
+
 ## Joing functionality
 
 `PingTrace` to reboot gateway.
