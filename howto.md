@@ -25,7 +25,8 @@ $taskAction = New-ScheduledTaskAction -Execute 'iperf3.exe' -Argument '-s'
 $taskTrigger = New-ScheduledTaskTrigger -AtStartup
 $taskPrincipal = New-ScheduledTaskPrincipal -UserId ".\fallengamer"
 $task = New-ScheduledTask -Action $taskAction -Trigger $taskTrigger # -Principal $taskPrincipal
-$task | Register-ScheduledTask -TaskName "iperf3 server" # -User $taskPrincipal -Force
+$task | Register-ScheduledTask -TaskName "iperf3 server" # -User $taskPrincipal -Password $null -Force
+# $STPrin = New-ScheduledTaskPrincipal -GroupId "BUILTIN\Administrators" -RunLevel Highest
 ```
 
 Then open task scheduler and set that it would be executed ragerdless if the user was logged in.
