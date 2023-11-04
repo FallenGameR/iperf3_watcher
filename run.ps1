@@ -2,6 +2,9 @@ $json = iperf3 -c iperf3server --json
 $parsed = $json | ConvertFrom-Json
 $speedInMibs = $parsed.end.sum_received.bits_per_second / 1mb
 
+$latencyText = psping -n 3 iperf3server:5201
+$latencyInMs = $latencyText | where{ $psitem -match "Average = (\d+\.\d+)ms" } | foreach{ $Matches[1] }
+
 function Write-Log
 {
     param
@@ -29,4 +32,4 @@ function Write-Log
     }
 }
 
-Write-Log $speedInMibs
+Write-Log "$speedInMibs,$latencyInMs"
