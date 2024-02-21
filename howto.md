@@ -7,6 +7,11 @@
 code C:\Windows\System32\drivers\etc\hosts
 ```
 
+## Scheduling simplified
+
+- Task Scheduler / right click / import
+- Select corresponding xml file
+
 ## Schedule for periodic execution
 
 ```ps1
@@ -31,6 +36,6 @@ $task | Register-ScheduledTask -TaskName "iperf3 server" # -User $taskPrincipal 
 
 Then open task scheduler and set that it would be executed ragerdless if the user was logged in.
 
-## Joing functionality
+## Join functionality
 
 `PingTrace` to reboot gateway.
