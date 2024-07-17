@@ -14,7 +14,7 @@ function Start-Monitor
         $finishedExact = Get-Date
 
         $start = [datetime]::parse($startExact.ToString("yyyy/MM/dd HH:mm:ss"))
-        $next = [datetime]::parse($finishedExact.ToString("yyyy/MM/dd HH:mm:ss")).Add($interval)
+        $next = [datetime]::parse($startExact.ToString("yyyy/MM/dd HH:mm:ss")).Add($interval)
         if( -not $value ){ $value = -1 }
 
         $logged = $start
