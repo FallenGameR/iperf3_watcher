@@ -14,7 +14,7 @@ function Start-Monitor
         $finishedExact = Get-Date
 
         $start = [datetime]::parse($startExact.ToString("yyyy/MM/dd HH:mm:ss"))
-        $next = [datetime]::parse($startExact.ToString("yyyy/MM/dd HH:mm:ss")).Add($interval)
+        $next = $start.Add($interval)
         if( -not $value ){ $value = -1 }
 
         $logged = $start
@@ -28,7 +28,7 @@ function Start-Monitor
         $sleep = $next - [datetime]::Now
         if( $sleep -gt [timespan]::Zero )
         {
-            Start-Sleep -Duration $sleep
+            Start-Sleep -Milliseconds $sleep.TotalMilliseconds
         }
     }
 }
@@ -85,6 +85,12 @@ function Trace-Download( $prefix )
 
 C:\Windows\System32\drivers\etc\hosts
 20.106.102.7 iperf3server
+
+
+        Start-Monitor `
+            { Test-Latency } `
+            { param($line) $line } `
+            "00:00:01"
 
 #>
 
