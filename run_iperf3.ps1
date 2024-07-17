@@ -1,5 +1,8 @@
 $json = iperf3 -c iperf3server --json
 $parsed = $json | ConvertFrom-Json
+
+# sender - is iperf client, Upload speed from iperf client to iperf server is measured
+# receiver - is iperf server, Download speed on iperf server from iperf client is measured
 $speedInMibs = $parsed.end.sum_received.bits_per_second / 1mb
 
 $latencyText = psping -n 3 iperf3server:5201
