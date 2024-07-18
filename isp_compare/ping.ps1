@@ -48,6 +48,15 @@ function Test-Download
 function Out-File
 {
     param($line, $prefix)
+
+    $path = "$PsScriptRoot\data\$($prefix)_$(Get-Date -Format "dd").csv"
+
+    if( -not (Test-Path $path) )
+    {
+        $header = "Timestamp,$prefix"
+        $header | Add-Content -Path $path
+    }
+
     $line | Add-Content -Path "$PsScriptRoot\data\$($prefix)_$(Get-Date -Format "dd").csv"
 }
 
