@@ -38,10 +38,18 @@ function Test-Latency
     Test-Connection google.com -Count 1 | foreach Latency
 }
 
-function Test-Download
+function Test-Iperf3
 {
     $reply = iperf3 -c iperf3server --json | ConvertFrom-Json
     $mbpsDownload = $reply.end.sum_received.bits_per_second / 1mb
+    [math]::Round($mbpsDownload, 2)
+}
+
+function Test-Speedtest
+{
+    $path = "$PsScriptRoot\bin\speedtest.exe"
+    $reply = & $path -f json-pretty | ConvertFrom-Json
+    $mbpsDownload = $reply.download.bandwidth / 1mb * 8
     [math]::Round($mbpsDownload, 2)
 }
 
@@ -84,7 +92,7 @@ function Trace-Download( $prefix )
         $prefix += "_download"
 
         Start-Monitor `
-            { Test-Download } `
+            { Test-Speedtest } `
             { param($line) Out-File $line $prefix } `
             "00:05:00"
     }
@@ -95,11 +103,10 @@ function Trace-Download( $prefix )
 C:\Windows\System32\drivers\etc\hosts
 20.106.102.7 iperf3server
 
-
-        Start-Monitor `
-            { Test-Latency } `
-            { param($line) $line } `
-            "00:00:01"
+Start-Monitor `
+    { Test-Latency } `
+    { param($line) $line } `
+    "00:00:01"
 
 #>
 
