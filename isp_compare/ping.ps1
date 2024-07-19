@@ -61,7 +61,7 @@ function Out-File
 
     if( -not (Test-Path $path) )
     {
-        $header = "Timestamp,Value"
+        $header = "Time,Value"
         $header | Add-Content -Path $path
     }
 
