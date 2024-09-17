@@ -47,7 +47,7 @@ function Test-Iperf3
 
 function Test-Speedtest
 {
-    $path = "$PsScriptRoot\bin\speedtest.exe"
+    $path = "$PsScriptRoot\bin\ 104609.exe"
     $reply = & $path -f json-pretty | ConvertFrom-Json
     $mbpsDownload = $reply.download.bandwidth / 1mb * 8
     [math]::Round($mbpsDownload, 2)
